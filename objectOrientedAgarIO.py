@@ -63,8 +63,7 @@ class ai(Controller):
     
     
     def aiMovement(self, playerMass,foodEaten):
-        a = 0
-        if self.aiMass > playerMass:#This should move the ai to the player when the ai has a bigger mass than the player.
+        if self.aiMass > 10+playerMass:# 10 + playermass to allow ai to eat some food..
             aiPosition = []
             aiPosition.append(self.aiPositionX)
             aiPosition.append(self.aiPositionY) 
@@ -87,27 +86,18 @@ class ai(Controller):
             if self.aiPositionY-200 < playerObject.playerPositionY:
                 self.aiPositionY += self.aiSpeed
                 
-        if self.aiMass == playerMass or self.aiMass <= playerMass:
+        else:
             if foodTickCount > 3000:
-                number = False 
-                closestFoodX = 0
-                closestFoodY = 0
-                if foodEaten == a:
-                    if number == False:
-                        closestFoodX = foodList[0].posX
-                        closestFoodY = foodList[0].posY
-                        a += 1
-                        number = True
-                if foodEaten < a:     
-                    if self.aiPositionX < closestFoodX:
-                        self.aiPositionX += self.aiSpeed
-                    if self.aiPositionX > closestFoodX:
-                        self.aiPositionX -= self.aiSpeed
-                    if self.aiPositionY < closestFoodY:
-                        self.aiPositionY += self.aiSpeed
-                    if self.aiPositionY > closestFoodY:
-                        self.aiPositionY -= self.aiSpeed   
-                    number = False
+                closestFoodX = foodList[0].posX
+                closestFoodY = foodList[0].posY
+                if self.aiPositionX < closestFoodX:
+                    self.aiPositionX += self.aiSpeed
+                if self.aiPositionX > closestFoodX:
+                    self.aiPositionX -= self.aiSpeed
+                if self.aiPositionY < closestFoodY:
+                    self.aiPositionY += self.aiSpeed
+                if self.aiPositionY > closestFoodY:
+                    self.aiPositionY -= self.aiSpeed   
 
 
 ''' ----Pseudocode----
@@ -343,7 +333,7 @@ while True:
         if mainControlObject.totalMass < 100:#if there is less mass in the game than 100
             foodRect1 = ''
             mainControlObject.totalMass += 1#add 1 to the game's mass
-            foodList.append(Food(5, random.choice(colours), random.randint(0,785),random.randint(0,580), 'hi'))#append a food object to the foodList
+            foodList.append(Food(5, random.choice(colours), random.randint(10,725),random.randint(10,580), 'hi'))#append a food object to the foodList
         hitList = []#clear the hitList
         for stuff in foodList:#for the objects in the foodList
             stuff.spawnFood(stuff.size, stuff.color, stuff.posX, stuff.posY)#draw the food
